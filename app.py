@@ -4,10 +4,10 @@ import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 CORS(app)
-import os
 
 db_path = os.environ.get("DB_PATH", "/tmp/profiles.db")
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
@@ -197,10 +197,6 @@ def delete_profile(profile_id):
     db.session.delete(profile)
     db.session.commit()
     return "", 204
-
-if not __name__ == "__main__":
-    from vercel_wsgi import handle_wsgi
-    app = handle_wsgi(app)
     
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True)
