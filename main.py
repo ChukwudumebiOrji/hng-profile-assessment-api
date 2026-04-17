@@ -200,6 +200,4 @@ def delete_profile(profile_id):
     db.session.delete(profile)
     db.session.commit()
     return "", 204
-    
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))  
+
