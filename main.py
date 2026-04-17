@@ -6,8 +6,8 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-# app = Flask(__name__)
-# CORS(app)
+app = Flask(__name__)
+CORS(app)
 
 # db_path = os.environ.get("DB_PATH", "/tmp/profiles.db")
 # app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
