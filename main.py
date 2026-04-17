@@ -75,6 +75,9 @@ def generate_uuid7():
     hex_str = timestamp_hex + "7" + random_bits[:3] + format((int(random_bits[3], 16) & 0x3) | 0x8, "x") + random_bits[4:16]
     return str(uuid.UUID(hex_str))
 
+@app.route("/")
+def index():
+    return "API is running", 200
 
 @app.route("/api/profiles", methods=["POST"])
 def create_profile():
@@ -199,4 +202,5 @@ def delete_profile(profile_id):
     return "", 204
     
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host="0.0.0.0", port=port)
