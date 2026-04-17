@@ -7,7 +7,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 CORS(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///profiles.db"
+import os
+
+db_path = os.environ.get("DB_PATH", "/tmp/profiles.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
@@ -195,6 +198,9 @@ def delete_profile(profile_id):
     db.session.commit()
     return "", 204
 
-
+if not __name__ == "__main__":
+    from vercel_wsgi import handle_wsgi
+    app = handle_wsgi(app)
+    
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
