@@ -1,4 +1,5 @@
 # --- JSON Response Wrappers: For API Envelopes ---
+from flask import jsonify
 
 def json_success(data, status_code=200, message=None):
     """
