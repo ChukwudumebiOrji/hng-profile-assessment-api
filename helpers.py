@@ -21,7 +21,7 @@ def generate_uuid():
     """
     Generates a UUID string for new records.
     """
-    return str(uuid.uuid4)
+    return str(uuid.uuid4())
 
 def parse_natural_query(q):
     """
