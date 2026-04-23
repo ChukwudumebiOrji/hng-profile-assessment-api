@@ -6,7 +6,7 @@ from flask import Flask, json, request, jsonify, make_response
 from flask_cors import CORS 
 from flask_sqlalchemy import SQLAlchemy
 import os, re, logging 
-from helpers import json_success, json_error
+from helpers import json_success, json_error, parse_natural_query, classify_age, generate_uuid
 
 # ---------------------- Flask Application Setup ------------------
 
