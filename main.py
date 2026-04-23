@@ -51,7 +51,7 @@ class Profile(db.Model):
             "age": self.age,
             "age_group": self.age_group,
             "country_id": self.country_id,
-            "country_name" = self.country_name
+            "country_name" : self.country_name,
             "country_probability": round(self.country_probability, 2)
                 if self.country_probability is not None else None,
             "created_at": self.created_at,
