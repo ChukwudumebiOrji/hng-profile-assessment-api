@@ -51,6 +51,7 @@ class Profile(db.Model):
             "age": self.age,
             "age_group": self.age_group,
             "country_id": self.country_id,
+            "country_name" = self.country_name
             "country_probability": round(self.country_probability, 2)
                 if self.country_probability is not None else None,
             "created_at": self.created_at,
@@ -80,6 +81,7 @@ def seed_data(json_path="seed_profiles.json"):
 
     try:
         with open(json_path, "r") as f:
+            if 
             profiles = json.load(f)
             for p in profiles:
                 # Each profile entry is loaded and transformed to db row
@@ -99,7 +101,9 @@ def seed_data(json_path="seed_profiles.json"):
                 db.session.add(profile)
             db.session.commit()
         return json_success(message="Seed data loaded successfully", data={"count": len(profiles)})
-    except Exception as e:
+    except FileNotFoundError:
+        return json_error(f"File not found at {json_path}", status_code=404)
+    except (OSError, json.JSONDecodeError) as e:
         return json_error(f"Failed to load seed data: {str(e)}", status_code=500)
 
 # --------------- Database Creation and Seeding --------------------
@@ -181,6 +185,7 @@ def create_profile():
 
     # Always store creation time as UTC ISO string
     created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    
     profile = Profile(
         id=generate_uuid(),
         name=name,
@@ -190,6 +195,7 @@ def create_profile():
         age=age,
         age_group=classify_age(age),
         country_id=top_country["country_id"],
+        country_name=top_country["country_name"],
         country_probability=top_country["probability"],
         created_at=created_at,
     )
