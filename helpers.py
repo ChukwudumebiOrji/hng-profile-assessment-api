@@ -1,4 +1,3 @@
-# --- JSON Response Wrappers: For API Envelopes ---
 from flask import jsonify
 import os, re, uuid
 
@@ -65,10 +64,13 @@ def parse_natural_query(q):
         filters["max_age"] = int(under_match.group(1))
 
     # Map known country names to their codes (expand as needed)
-    from countries import country_map  # Imported from countries.py
-    for country_name, code in country_map.items():
-        if country_name in q:
-            filters["country_id"] = code
+    try:
+        from countries import country_map  # Imported from countries.py
+        for country_name, code in country_map.items():
+            if country_name in q:
+                filters["country_id"] = code
+    except ImportError:
+        pass
 
     # Return None if nothing found to filter on
     if not filters:
@@ -76,20 +78,27 @@ def parse_natural_query(q):
     return filters
 
 
-def json_success(data, status_code=200, message=None):
+def json_success(data=None, status_code=200, message=None):
     """
     Standard success response.
     Includes status, optional message, and data.
+    Ensures pagination envelope fields (page, limit, total, count) are retained.
     Adds CORS header to response.
     """
     content = {"status": "success"}
     if message:
         content["message"] = message
-    if isinstance(data, dict) and "count" in data and "data" in data:
-        content["count"] = data["count"]
+        
+    if isinstance(data, dict) and "data" in data:
+        # Properly map pagination envelope variables
+        for key in ["page", "limit", "total", "count"]:
+            if key in data:
+                content[key] = data[key]
         content["data"] = data["data"]
     else:
-        content["data"] = data
+        if data is not None:
+            content["data"] = data
+            
     resp = jsonify(content)
     resp.status_code = status_code
     resp.headers["Access-Control-Allow-Origin"] = "*"
