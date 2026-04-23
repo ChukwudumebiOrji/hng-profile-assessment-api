@@ -31,7 +31,7 @@ class Profile(db.Model):
     name = db.Column(db.String(100), unique=True, nullable=False, index=True)  # Unique name
     gender = db.Column(db.String(20), nullable=False, index=True)  # "male" or "female"
     gender_probability = db.Column(db.Float, nullable=False, index=True)  # Prediction score
-    sample_size = db.Column(db.Integer, nullable=False, index=True)  # Sample size from Genderize
+    # sample_size = db.Column(db.Integer, nullable=False, index=True)  # Sample size from Genderize
     age = db.Column(db.Integer, nullable=False, index=True)  # Exact age
     age_group = db.Column(db.String(20), nullable=False, index=True)  # "child", "teenager", "adult", "senior"
     country_id = db.Column(db.String(10), nullable=False, index=True)  # ISO country code (NG, US, etc)
@@ -47,7 +47,7 @@ class Profile(db.Model):
             "gender": self.gender,
             "gender_probability": round(self.gender_probability, 2)
                 if self.gender_probability is not None else None,
-            "sample_size": self.sample_size,
+            # "sample_size": self.sample_size,
             "age": self.age,
             "age_group": self.age_group,
             "country_id": self.country_id,
@@ -193,7 +193,7 @@ def create_profile():
         name=name,
         gender=gdata["gender"],
         gender_probability=gdata["probability"],
-        sample_size=gdata["count"],
+        # sample_size=gdata["count"],
         age=age,
         age_group=classify_age(age),
         country_id=top_country["country_id"],
