@@ -19,9 +19,9 @@ def classify_age(age):
 
 def generate_uuid():
     """
-    Generates a UUIDv7 string for new records.
+    Generates a UUID string for new records.
     """
-    return str(uuid.uuidv4)
+    return str(uuid.uuid4)
 
 def parse_natural_query(q):
     """
