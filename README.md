@@ -71,7 +71,7 @@ This project implements a robust gender, age, and nationality profile intelligen
 4. **Run the application**
 
     ```bash
-    python app.py
+    python main.py
     ```
     - By default, will use SQLite at `/tmp/profiles.db`
     - The seed runs automatically the first time if empty (no duplicates)
