@@ -102,7 +102,7 @@ def seed_data(json_path="seed_profiles.json"):
         return json_success(message="Seed data loaded successfully", data={"count": len(profiles)})
     except FileNotFoundError:
         return json_error(f"File not found at {json_path}", status_code=404)
-    except (OSError, json.JSONDecodeError) as e:
+    except Exception as e:
         return json_error(f"Failed to load seed data: {str(e)}", status_code=500)
 
 # --------------- Database Creation and Seeding --------------------
