@@ -1,7 +1,7 @@
 # --- JSON Response Wrappers: For API Envelopes ---
 from flask import jsonify
 import os, re
-from uuid7 import uuid7
+from uuid7 import UUID7
 
 # ---------------- Helper Functions -------------------------------
 
@@ -22,7 +22,7 @@ def generate_uuid():
     """
     Generates a UUIDv7 string for new records.
     """
-    return str(uuid7())
+    return str(UUID7())
 
 def parse_natural_query(q):
     """
