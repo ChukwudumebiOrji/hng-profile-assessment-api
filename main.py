@@ -82,6 +82,7 @@ def seed_data(json_path="seed_profiles.json"):
     try:
         with open(json_path, "r") as f:
             profiles = json.load(f)
+            profiles = profiles.get("profiles")
             print("Seed profiles loaded:", type(profiles), profiles[:1])
             
             for p in profiles:
