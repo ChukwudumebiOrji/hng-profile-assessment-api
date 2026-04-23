@@ -3,4 +3,4 @@ Flask-Cors
 Flask-SQLAlchemy
 requests
 gunicorn
-python-uuid7
+uuid7
